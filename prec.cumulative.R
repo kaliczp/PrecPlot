@@ -8,8 +8,10 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
         ts.readed.window <- get(time.series[act.ts.num])[time.lim]
         ## Extract time stamps
         ts.timestamps <- time(ts.readed.window)
+        ## Extract coredata
+        ts.coredata <- coredata(ts.readed.window)
         ## Cumulate coredata
-        ts.cumulated.coredata <- cumsum(coredata(ts.readed.window))
+        ts.cumulated.coredata <- cumsum(ts.coredata)
         ## Collect end value
         ts.length <- length(ts.cumulated.coredata)
         ts.end.values <- c(ts.end.values, ts.cumulated.coredata[ts.length])
