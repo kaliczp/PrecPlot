@@ -21,8 +21,9 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
 
     ## Plot time-series
     plot(ts.1, xlab="",ylab="Precipitation [mm]", type = "n",
-             ylim = c(0, maximal.prec)
-             )
+         ylim = c(0, maximal.prec),
+         main = time.lim
+         )
     grid(nx = NA, ny = NULL)
     for(act.ts.num in 1:ts.num) {
         ts.to.plot <- get(paste("ts", act.ts.num, sep="."))
