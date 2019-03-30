@@ -6,13 +6,15 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
     for(act.ts.num in 1:ts.num) {
         ## Read in and cut
         ts.readed.window <- get(time.series[act.ts.num])[time.lim]
+        ## Extract time stamps
+        ts.timestamps <- time(ts.readed.window)
         ## Cumulate coredata
         ts.cumulated.coredata <- cumsum(coredata(ts.readed.window))
         ## Collect end value
         ts.length <- length(ts.cumulated.coredata)
         ts.end.values <- c(ts.end.values, ts.cumulated.coredata[ts.length])
         ## Generate new zoo series
-        ts.cumulated <- zoo(ts.cumulated.coredata, time(ts.readed.window))
+        ts.cumulated <- zoo(ts.cumulated.coredata, ts.timestamps)
         assign(paste("ts", act.ts.num, sep="."), ts.cumulated)
     }
 
