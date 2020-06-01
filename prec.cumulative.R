@@ -2,10 +2,20 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
     require(xts)
 
     ## Start and end time in POSIXct
-    times.splitted <- unlist(strsplit(time.lim, split = "/"))
-    start.time <- as.POSIXct(times.splitted[1])
-    end.time <- as.POSIXct(times.splitted[2])
-
+    if(is.character(time.lim)) {
+        times.splitted <- unlist(strsplit(time.lim, split = "/"))
+        start.time <- as.POSIXct(times.splitted[1])
+        end.time <- as.POSIXct(times.splitted[2])
+    } else {
+        if(is.timeBased(time.lim[1])) {
+            start.time <- time.lim[1]
+            end.time <- time.lim[2]
+            time.lim <- paste0(strftime(time.lim[1], format = "%Y-%m-%d %H:%M"),
+                               "/",
+                               strftime(time.lim[2], format = "%Y-%m-%d %H:%M")
+                               )
+        }
+    }
     ts.num <- length(time.series)
     ts.end.values <- numeric()
     ## Read time-series and pre-process
