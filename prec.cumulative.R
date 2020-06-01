@@ -16,6 +16,18 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
         ts.timestamps <- time(ts.readed.window)
         ## Extract coredata
         ts.coredata <- coredata(ts.readed.window)
+        ## Put zero precipitation the end and beginning of the valid
+        ## time-series if necessary
+        if(length(ts.timestamps) > 0) {
+            if(ts.timestamps[1] > start.time) {
+                ts.timestamps <- c(start.time, ts.timestamps)
+                ts.coredata <- c(0, ts.coredata)
+            }
+            if(ts.timestamps[length(ts.timestamps)] < end.time) {
+                ts.timestamps <- c(ts.timestamps, end.time)
+                ts.coredata <- c(ts.coredata, 0)
+            }
+        }
         ## Cumulate coredata
         ts.cumulated.coredata <- cumsum(ts.coredata)
         ## Collect end value
