@@ -1,4 +1,4 @@
-prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), time.lim = tttime) {
+prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), time.lim = tttime, points = FALSE) {
     require(xts)
 
     ## Start and end time in POSIXct
@@ -60,6 +60,9 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
     for(act.ts.num in 1:ts.num) {
         ts.to.plot <- get(paste("ts", act.ts.num, sep="."))
         lines(ts.to.plot, lwd=2, col=act.ts.num)
+        if(points) {
+            points(ts.to.plot, col=act.ts.num)
+        }
     }
     legend("bottomright", legend=time.series, lwd = 2, col=1:length(time.series))
 }
