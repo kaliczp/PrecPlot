@@ -49,7 +49,7 @@ prec.cumulative <- function(time.series=c("Boreas.xts", "c1.xts", "hhm.xts"), ti
     }
 
     ## Select highest value for y-axis limit
-    maximal.prec <- max(ts.end.values)
+    maximal.prec <- max(ts.end.values, na.rm = TRUE)
 
     ## Plot time-series
     plot(ts.1, xlab="",ylab="Precipitation [mm]", type = "n",
